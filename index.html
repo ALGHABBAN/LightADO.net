@@ -68,6 +68,15 @@
                 If you want to send the connection within the code itself create a new Query or NonQuery object in the constructor pass the connection string and set the loadFromConfiguration
                 parameter to false:
                 <pre><code>NonQuery newNonQuery = new NonQuery(@"Data Source=.\SQLEXPRESS;Initial Catalog=YourDataBase;Integrated Security=True", False);</code></pre>
+				<h2>
+				Encryption Key
+				</h2>
+				<p>
+				if you want to enable encryption you will need to set the encryption key app setting section
+				</p>
+				<pre><code>  < appSettings>
+    < add key="EncryptKey" value="745jhduerhsm"/>
+  < /appSettings></code></pre>
 				<h1>
                     <a id="Introduction" class="anchor" href="#ExecuteQuery" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction
                 </h1>
@@ -267,6 +276,65 @@ you will need to Call the Execute Query to set the merchant object:
 }</code></pre>
 <p>
 Once the LightADO.net find a property marked as foreign key it will call a constructor with integer value int
+</p>
+<h1>
+Encryption 
+</h1>
+<p>
+You can use the Encrypted Attribute class to enable encryption for class or single property, 
+to encrypt a every string property in class mark that as encrypted 
+<pre>
+<code>
+    [Encrypted]
+    public class Application
+    {
+        public int ID { get; set; }
+
+        public int Merchant { get; set; }
+
+        public string Name { get; set; }
+
+        public bool IsEnabled { get; set; }
+
+        public string FailedURL { get; set; }
+
+        public string SuccessURL { get; set; }
+
+        public string Notes { get; set; }
+
+        public string AuthenticationKey { get; set; }
+
+        public DateTime CreateDate { get; set; }
+    }
+</code>
+</pre> 
+
+If you want to encrypt single property mark that property as encrypted 
+<pre>
+<code>    
+    public class Application
+    {
+        public int ID { get; set; }
+
+        public int Merchant { get; set; }
+
+        public string Name { get; set; }
+
+        public bool IsEnabled { get; set; }
+
+        public string FailedURL { get; set; }
+
+        public string SuccessURL { get; set; }
+
+        public string Notes { get; set; }
+
+        [Encrypted]
+        public string AuthenticationKey { get; set; }
+
+        public DateTime CreateDate { get; set; }
+    }
+</code>
+</pre>
 </p>
 <h1><a id="ValidateObject"><span class="octicon octicon-link"></span></a>
 	Validate Object
